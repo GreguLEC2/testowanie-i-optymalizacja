@@ -94,6 +94,33 @@ async function fetchAndDisplayAlbums() {
     albumsTable.innerHTML += `</tbody>`;
 }
 
+// Funkcja do pobierania i wyświetlania zdjęć z limitem
+async function fetchAndDisplayPhotos() {
+    // Pobierz dane z API JSONPlaceholder z limitem
+    const response = await fetch('https://jsonplaceholder.typicode.com/photos');
+    const photosData = await response.json();
+
+    // Wyświetl zdjęcia w tabeli
+    photosTable.innerHTML = `<thead>
+            <tr>
+                <th>ID</th>
+                <th>Album ID</th>
+                <th>Tytuł</th>
+                <th>URL</th>
+            </tr>
+        </thead>
+        <tbody>`;
+    for (const photo of photosData) {
+        photosTable.innerHTML += `<tr>
+                <td><span class="math-inline">${photo.id}</td\>
+<td\></span>${photo.albumId}</td>
+                <td><span class="math-inline">${photo.title}</td\>
+<td\><a href\="</span>${photo.url}">Zdjęcie</a></td>
+            </tr>`;
+    }
+    photosTable.innerHTML += `</tbody>`;
+}
+
 // Funkcja do pobierania i wyświetlania postów z limitem
 async function fetchAndDisplayPostsWithLimit(limit) {
     // Pobierz dane z API JSONPlaceholder z limitem
@@ -177,29 +204,31 @@ async function fetchAndDisplayAlbumsWithLimit(limit) {
 
 // Funkcja do pobierania i wyświetlania zdjęć z limitem
 async function fetchAndDisplayPhotosWithLimit(limit) {
-    // Pobierz dane z API JSONPlaceholder z limitem
-    const response = await fetch(`https://jsonplaceholder.typicode.com/photos?limit=${limit}`);
-    const photosData = await response.json();
+  // Pobierz dane z API JSONPlaceholder z limitem
+  const response = await fetch(`https://jsonplaceholder.typicode.com/photos?limit=${limit}`);
+  const photosData = await response.json();
 
-    // Wyświetl zdjęcia w tabeli
-    photosTable.innerHTML = `<thead>
-            <tr>
-                <th>ID</th>
-                <th>Album ID</th>
-                <th>Tytuł</th>
-                <th>URL</th>
-            </tr>
-        </thead>
-        <tbody>`;
-    for (const photo of photosData) {
-        photosTable.innerHTML += `<tr>
-                <td><span class="math-inline">${photo.id}</td\>
-<td\></span>${photo.albumId}</td>
-                <td><span class="math-inline">${photo.title}</td\>
-<td\><a href\="</span>${photo.url}">Zdjęcie</a></td>
-            </tr>`;
-    }
-    photosTable.innerHTML += `</tbody>`;
+  // Zaktualizuj tabelę zdjęć pobranymi danymi
+  photosTable.innerHTML = `<thead>
+    <tr>
+      <th>ID</th>
+      <th>ID albumu</th>
+      <th>Tytuł</th>
+      <th>URL</th>
+    </tr>
+  </thead>
+  <tbody>`;
+  for (const photo of photosData) {
+    photosTable.innerHTML += `<tr>
+      <td><span class="math-inline">${photo.id}</td\>
+      </td>
+      <td>${photo.albumId}</td>
+      <td><span class="math-inline">${photo.title}</td\>
+      </td>
+      <td><a href="${photo.url}">Zdjęcie</a></td>
+    </tr>`;
+  }
+  photosTable.innerHTML += `</tbody>`;
 }
 
 // Dodaj funkcjonalność do przycisków limitu
@@ -214,7 +243,9 @@ btnComments.addEventListener('click', () => {
 btnAlbums.addEventListener('click', () => {
     fetchAndDisplayAlbumsWithLimit(3); // Zmień domyślną wartość limitu
 });
-
+btnPhotos.addEventListener('click', () => {
+  fetchAndDisplayPhotosWithLimit(2); // Zmień domyślną wartość limitu według potrzeb
+});
 
 // Funkcja do filtrowania postów po liczbie znaków
 function filterPostsByCharCount(minCharCount, maxCharCount) {
