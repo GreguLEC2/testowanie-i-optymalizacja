@@ -14,7 +14,7 @@ const albumsTable = document.getElementById('albums-table');
 const photosTable = document.getElementById('photos-table');
 
 // Funkcja do pobierania i wyświetlania postów
-async function fetchAndDisplayPosts() {
+window.fetchAndDisplayPosts = async function() {
     // Pobierz dane z API JSONPlaceholder
     const response = await fetch('https://jsonplaceholder.typicode.com/posts');
     const postsData = await response.json();
@@ -41,7 +41,7 @@ async function fetchAndDisplayPosts() {
 }
 
 // Funkcja do pobierania i wyświetlania komentarzy
-async function fetchAndDisplayComments() {
+window.fetchAndDisplayComments = async function() {
     // Pobierz dane z API JSONPlaceholder
     const response = await fetch('https://jsonplaceholder.typicode.com/comments');
     const commentsData = await response.json();
@@ -70,7 +70,7 @@ async function fetchAndDisplayComments() {
 }
 
 // Funkcja do pobierania i wyświetlania albumów
-async function fetchAndDisplayAlbums() {
+window.fetchAndDisplayAlbums = async function() {
     // Pobierz dane z API JSONPlaceholder
     const response = await fetch('https://jsonplaceholder.typicode.com/albums');
     const albumsData = await response.json();
@@ -95,7 +95,7 @@ async function fetchAndDisplayAlbums() {
 }
 
 // Funkcja do pobierania i wyświetlania zdjęć z limitem
-async function fetchAndDisplayPhotos() {
+window.fetchAndDisplayPhotos = async function() {
     // Pobierz dane z API JSONPlaceholder z limitem
     const response = await fetch('https://jsonplaceholder.typicode.com/photos');
     const photosData = await response.json();
@@ -248,7 +248,7 @@ btnPhotos.addEventListener('click', () => {
 });
 
 // Funkcja do filtrowania postów po liczbie znaków
-function filterPostsByCharCount(minCharCount, maxCharCount) {
+window.filterPostsByCharCount = function(minCharCount, maxCharCount) {
     const postsTable = document.getElementById('posts-table');
     const rows = postsTable.querySelectorAll('tbody tr');
 
